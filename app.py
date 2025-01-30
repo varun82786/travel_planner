@@ -80,13 +80,23 @@ def login():
 # Routes
 @app.route('/home')
 def home():
-    trips = mongoAPI.travel_db.trips.find()
+    if 'username' not in session:
+        flash('You need to log in first.', 'danger')
+        return redirect(url_for('login'))
+
+    trips = mongoAPI.travel_db.trips.find({"username": session['username']})
     return render_template('home.html', trips=trips)
+
 
 @app.route('/add_trip', methods=['GET', 'POST'])
 def add_trip():
+    if 'username' not in session:
+        flash('You need to log in first.', 'danger')
+        return redirect(url_for('login'))
+
     if request.method == 'POST':
         trip_data = {
+            'username': session['username'],  # Associate trip with logged-in user
             'destination': request.form['destination'],
             'start_date': request.form['start_date'],
             'end_date': request.form['end_date'],
@@ -98,25 +108,33 @@ def add_trip():
         mongoAPI.travel_db.trips.insert_one(trip_data)
         flash('Trip added successfully!', 'success')
         return redirect(url_for('home'))
+    
     return render_template('add_trip.html')
 
 @app.route('/edit_trip/<trip_id>', methods=['GET', 'POST'])
 def edit_trip(trip_id):
-    trip = mongoAPI.travel_db.trips.find_one({"_id": trip_id})
+    if 'username' not in session:
+        flash('You need to log in first.', 'danger')
+        return redirect(url_for('login'))
+
+    trip = mongoAPI.travel_db.trips.find_one({"_id": trip_id, "username": session['username']})
+    if not trip:
+        flash('Unauthorized access.', 'danger')
+        return redirect(url_for('home'))
+
     if request.method == 'POST':
         updated_trip = {
             'destination': request.form['destination'],
             'start_date': request.form['start_date'],
             'end_date': request.form['end_date'],
-            'notes': request.form['notes'],
-            'checklist': [],
-            'expenses': [],
-            'files': []
+            'notes': request.form['notes']
         }
-        mongoAPI.travel_db.trips.update_one({"_id": trip_id}, {"$set": updated_trip})
+        mongoAPI.travel_db.trips.update_one({"_id": trip_id, "username": session['username']}, {"$set": updated_trip})
         flash('Trip updated successfully!', 'success')
         return redirect(url_for('home'))
+
     return render_template('edit_trip.html', trip=trip)
+
 
 @app.route('/delete_trip/<trip_id>', methods=['POST'])
 def delete_trip(trip_id):
