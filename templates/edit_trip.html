@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="text-center mb-4">Edit Trip: {{ trip.destination }}</h2>
+
+<form action="/edit_trip/{{ trip._id }}" method="POST">
+    <div class="mb-3">
+        <label for="destination" class="form-label">Destination</label>
+        <input type="text" class="form-control" id="destination" name="destination" value="{{ trip.destination }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="start_date" class="form-label">Start Date</label>
+        <input type="date" class="form-control" id="start_date" name="start_date" value="{{ trip.start_date }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="end_date" class="form-label">End Date</label>
+        <input type="date" class="form-control" id="end_date" name="end_date" value="{{ trip.end_date }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="notes" class="form-label">Notes</label>
+        <textarea class="form-control" id="notes" name="notes" rows="3" required>{{ trip.notes }}</textarea>
+    </div>
+    <button type="submit" class="btn btn-warning">Update Trip</button>
+</form>
+{% endblock %}

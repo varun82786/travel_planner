@@ -1,0 +1,175 @@
+/* Add your custom styles here */
+body {
+    background-color: #fafafa;
+    font-family: monospace;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 100%;
+    width: 100%;
+    padding: 20px; /* Keep a fixed padding for better readability */
+    text-align: center;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    /*align-items: center;*/
+    min-height: 100vh;
+    background-color: #b2d4ff
+}
+
+.container_landing {
+    max-width: 100%;
+    width: 100%;
+    padding: 20px; /* Keep a fixed padding for better readability */
+    text-align: center;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #b2d4ff
+}
+
+.container_login {
+    max-width: 100%;
+    width: 100%;
+    padding: 20px; /* Keep a fixed padding for better readability */
+    text-align: center;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #b2d4ff
+}
+
+.container_signup {
+    max-width: 100%;
+    width: 100%;
+    padding: 20px; /* Keep a fixed padding for better readability */
+    text-align: center;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #b2d4ff
+}
+
+h1 {
+    color: #262626;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.btn {
+    background-color: #0095f6;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.counter {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.landing-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.error {
+    color: #ed4956;
+    margin-bottom: 20px;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form textarea {
+    width: 96%;
+    height: auto;
+    padding: 12px 16px;
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+    background-color: #fafafa;
+    font-size: 14px;
+    color: #262626;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+form input[type="submit"] {
+    background-color: #0095f6;
+    color: #fff;
+}
+
+form input[type="submit"]:hover {
+    background-color: #1e7fbe;
+}
+
+textarea {
+    height: 120px;
+    resize: none;
+}
+
+.hashtag-list {
+    margin-top: 20px;
+    text-align: left;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.hashtag {
+    background-color: #ffffff;
+    color: #000000;
+    padding: 14px 12px;
+    border-radius: 33px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 20px;
+}
+
+.button-number {
+    color: #838383;
+}
+
+
+.hashtag.selected {
+    background-color: #8ba9d4;
+}
+
+.copy-btn {
+    background-color: #0095f6;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.copy-btn:hover {
+    background-color: #0080f2;
+}

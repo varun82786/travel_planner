@@ -1,0 +1,14 @@
+{
+  "_id": {
+    "$oid": "6506edeaa82cb39dc9b8017b"
+  },
+  "hashtag": "match",
+  "category": "NN",
+  "gener": "loaction page",
+  "location": "vizag",
+  "parameters": [
+    1,
+    161769,
+    0.000006181654087000599
+  ]
+}
