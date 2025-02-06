@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>{{ trip.destination }} - Trip Details</h2>
+    <p><strong>Start Date:</strong> {{ trip.start_date }}</p>
+    <p><strong>End Date:</strong> {{ trip.end_date }}</p>
+    <p><strong>Notes:</strong> {{ trip.notes }}</p>
+
+    <h3 class="mt-4">Checklist</h3>
+    {% for day, items in trip.checklist.items() %}
+        <div class="card mt-3">
+            <div class="card-header">
+                <h5>{{ day }}</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    {% for item in items %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <form action="{{ url_for('toggle_checklist_item', trip_id=trip._id, day=day, item=item.item) }}" method="POST">
+                                <input type="checkbox" name="completed" onchange="this.form.submit()" {% if item.completed %}checked{% endif %}>
+                                <span class="{% if item.completed %}text-muted text-decoration-line-through{% endif %}">{{ item.item }}</span>
+                            </form>
+                            <form action="{{ url_for('delete_checklist_item', trip_id=trip._id, day=day, item=item.item) }}" method="POST">
+                                <button class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </li>
+                    {% endfor %}
+                </ul>
+                
+                <!-- Add new checklist item -->
+                <form action="{{ url_for('add_checklist_item', trip_id=trip._id, day=day) }}" method="POST" class="mt-2 d-flex">
+                    <input type="text" name="item" class="form-control" placeholder="Add new item" required>
+                    <button type="submit" class="btn btn-primary ms-2">Add</button>
+                </form>
+            </div>
+        </div>
+    {% endfor %}
+
+    <!-- Add a new day -->
+    <form action="{{ url_for('add_day', trip_id=trip._id) }}" method="POST" class="mt-4">
+        <input type="text" name="day" class="form-control" placeholder="Add new day (e.g., Day 3)" required>
+        <button type="submit" class="btn btn-success mt-2">Add Day</button>
+    </form>
+</div>
+{% endblock %}

@@ -104,15 +104,15 @@ def add_trip():
             'created_at': operationsAPI.get_date(),
             'updated_at': None,
             'notes': request.form['notes'],
-            'checklist': [],
+            'checklist': {},  # Use dictionary instead of list
             'expenses': [],
             'files': []
         }
         mongoAPI.travel_db.trips.insert_one(trip_data)
         flash('Trip added successfully!', 'success')
         return redirect(url_for('home'))
-    
     return render_template('add_trip.html')
+
 
 @app.route('/edit_trip/<trip_id>', methods=['GET', 'POST'])
 def edit_trip(trip_id):
@@ -139,6 +139,61 @@ def edit_trip(trip_id):
         return redirect(url_for('home'))
 
     return render_template('edit_trip.html', trip=trip)
+
+@app.route('/trip_details/<trip_id>')
+def trip_details(trip_id):
+    trip = mongoAPI.travel_db.trips.find_one({'_id': ObjectId(trip_id)})
+    
+    if not trip:
+        flash('Trip not found!', 'danger')
+        return redirect(url_for('home'))
+
+    # Debugging
+    #print("DEBUG: Trip Data ->", trip)
+
+    # Ensure checklist is a dictionary (fix blank page issue)
+    if 'checklist' not in trip or not isinstance(trip['checklist'], dict):
+        trip['checklist'] = {}
+
+    return render_template('trip_details.html', trip=trip)
+
+
+@app.route('/toggle_checklist_item/<trip_id>/<day>/<item>', methods=['POST'])
+def toggle_checklist_item(trip_id, day, item):
+    trip = mongoAPI.travel_db.trips.find_one({'_id': ObjectId(trip_id)})
+    checklist = trip.get('checklist', {})
+
+    for i in checklist.get(day, []):
+        if i['item'] == item:
+            i['completed'] = not i.get('completed', False)
+
+    mongoAPI.travel_db.trips.update_one({'_id': ObjectId(trip_id)}, {'$set': {'checklist': checklist}})
+    return redirect(url_for('trip_details', trip_id=trip_id))
+
+
+@app.route('/add_checklist_item/<trip_id>/<day>', methods=['POST'])
+def add_checklist_item(trip_id, day):
+    item = request.form['item']
+    mongoAPI.travel_db.trips.update_one(
+        {'_id': ObjectId(trip_id)},
+        {'$push': {f'checklist.{day}': {'item': item, 'completed': False}}}
+    )
+    return redirect(url_for('trip_details', trip_id=trip_id))
+
+
+@app.route('/delete_checklist_item/<trip_id>/<day>/<item>', methods=['POST'])
+def delete_checklist_item(trip_id, day, item):
+    mongoAPI.travel_db.trips.update_one(
+        {'_id': ObjectId(trip_id)},
+        {'$pull': {f'checklist.{day}': {'item': item}}}
+    )
+    return redirect(url_for('trip_details', trip_id=trip_id))
+
+@app.route('/add_day/<trip_id>', methods=['POST'])
+def add_day(trip_id):
+    day = request.form['day']
+    mongoAPI.travel_db.trips.update_one({'_id': ObjectId(trip_id)}, {'$set': {f'checklist.{day}': []}})
+    return redirect(url_for('trip_details', trip_id=trip_id))
 
 
 @app.route('/delete_trip/<trip_id>', methods=['POST'])

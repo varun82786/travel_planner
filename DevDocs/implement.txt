@@ -1,0 +1,6 @@
+1. sort the cards based on dates palanned
+2. sort by pending
+3. make card clickable -> then make show the itenary
+4. make checklist and update the checklist
+
+

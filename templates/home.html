@@ -6,20 +6,18 @@
 <div class="row">
     {% for trip in trips %}
         <div class="col-md-4 col-sm-6 mb-4">
-            <div class="card">
-                <div class="card-header">
-                    {{ trip.destination }}
+            <a href="{{ url_for('trip_details', trip_id=trip._id) }}" class="text-decoration-none">
+                <div class="card shadow-sm">
+                    <div class="card-header">
+                        <h5 class="mb-0">{{ trip.destination }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Start Date:</strong> {{ trip.start_date }}</p>
+                        <p><strong>End Date:</strong> {{ trip.end_date }}</p>
+                        <p><strong>Notes:</strong> {{ trip.notes }}</p>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <p><strong>Start Date:</strong> {{ trip.start_date }}</p>
-                    <p><strong>End Date:</strong> {{ trip.end_date }}</p>
-                    <p><strong>Notes:</strong> {{ trip.notes }}</p>
-                    <a href="/edit_trip/{{ trip._id }}" class="btn btn-sm btn-outline-primary">Edit</a>
-                    <form action="/delete_trip/{{ trip._id }}" method="POST" class="d-inline">
-                        <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
-                    </form>
-                </div>
-            </div>
+            </a>
         </div>
     {% endfor %}
 </div>
