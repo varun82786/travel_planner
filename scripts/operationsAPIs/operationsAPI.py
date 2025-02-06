@@ -108,7 +108,8 @@ def generate_secret_key(length=32):
     characters = string.ascii_letters + string.digits + string.punctuation
     return ''.join(secrets.choice(characters) for _ in range(length))
 
-
+def get_date():
+    return time.strftime("%Y-%m-%d")
 # lis = ["skyphotography", "worldphotographyday" ,"ballaratphoto" ,"officialphotographyhub" ,"traveldiary" ,"thephotographyblogger"  ]
 
 # for hash in lis:

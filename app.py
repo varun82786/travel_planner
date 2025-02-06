@@ -3,6 +3,7 @@ import bcrypt
 import os
 from werkzeug.utils import secure_filename
 import certifi
+from bson import ObjectId
 from pymongo.mongo_client import MongoClient
 from scripts.mongoAPI import mongoAPI
 from scripts.operationsAPIs import operationsAPI
@@ -100,6 +101,8 @@ def add_trip():
             'destination': request.form['destination'],
             'start_date': request.form['start_date'],
             'end_date': request.form['end_date'],
+            'created_at': operationsAPI.get_date(),
+            'updated_at': None,
             'notes': request.form['notes'],
             'checklist': [],
             'expenses': [],
@@ -117,7 +120,7 @@ def edit_trip(trip_id):
         flash('You need to log in first.', 'danger')
         return redirect(url_for('login'))
 
-    trip = mongoAPI.travel_db.trips.find_one({"_id": trip_id, "username": session['username']})
+    trip = mongoAPI.travel_db.trips.find_one({"_id": ObjectId(trip_id), "username": session['username']})
     if not trip:
         flash('Unauthorized access.', 'danger')
         return redirect(url_for('home'))
@@ -127,9 +130,11 @@ def edit_trip(trip_id):
             'destination': request.form['destination'],
             'start_date': request.form['start_date'],
             'end_date': request.form['end_date'],
-            'notes': request.form['notes']
+            'updated_at': operationsAPI.get_date(),
+            'notes': request.form['notes'],
+            
         }
-        mongoAPI.travel_db.trips.update_one({"_id": trip_id, "username": session['username']}, {"$set": updated_trip})
+        mongoAPI.travel_db.trips.update_one({"_id": ObjectId(trip_id), "username": session['username']}, {"$set": updated_trip})
         flash('Trip updated successfully!', 'success')
         return redirect(url_for('home'))
 
@@ -138,7 +143,7 @@ def edit_trip(trip_id):
 
 @app.route('/delete_trip/<trip_id>', methods=['POST'])
 def delete_trip(trip_id):
-    mongoAPI.travel_db.trips.delete_one({"_id": trip_id})
+    mongoAPI.travel_db.trips.delete_one({"_id": ObjectId(trip_id)})
     flash('Trip deleted successfully!', 'success')
     return redirect(url_for('home'))
 
