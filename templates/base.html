@@ -9,10 +9,13 @@
     <style>
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #f7f7f7;
+            background-color: #eef2f7; /* Soft light blue */
+            background-image: url('media/temp.svg');
+            background-repeat: repeat; /* Make the pattern repeat */
+            background-position: center;
         }
         .navbar {
-            background-color: #222;
+            background-color: #6baed6; /* Sky blue */
         }
         .navbar a {
             color: white !important;
@@ -25,12 +28,14 @@
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s ease-in-out;
+            background-color: #ffffff; /* Clean white background for cards */
         }
         .card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
         .card-header {
-            background-color: #555;
+            background-color: #4e79a7; /* Deep blue */
             color: white;
             font-weight: bold;
         }
@@ -40,9 +45,11 @@
         .btn {
             border-radius: 25px;
             transition: background-color 0.3s ease;
+            background-color: #ffac33; /* Warm golden yellow */
+            color: white;
         }
         .btn:hover {
-            background-color: #007bff;
+            background-color: #ff9a00; /* Lighter golden yellow */
         }
         .flash {
             font-size: 1.1rem;
@@ -52,11 +59,11 @@
             animation: fadeIn 0.5s ease-in-out;
         }
         .flash.success {
-            background-color: #d4edda;
+            background-color: #d4edda; /* Soft green for success */
             color: #155724;
         }
         .flash.danger {
-            background-color: #f8d7da;
+            background-color: #f8d7da; /* Soft pink for danger */
             color: #721c24;
         }
         @keyframes fadeIn {
@@ -64,7 +71,7 @@
             to { opacity: 1; }
         }
         footer {
-            background-color: #333;
+            background-color: #2f4f4f; /* Slate gray for footer */
             color: white;
             padding: 10px;
             margin-top: 50px;
@@ -73,6 +80,8 @@
             margin-bottom: 0;
         }
     </style>
+    
+    
 </head>
 <body>
 

@@ -1,0 +1,22 @@
+<svg width="497" height="353" viewBox="0 0 497 353" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M12 12C12 5.37258 17.3726 0 24 0H473C479.627 0 485 5.37258 485 12V341C485 347.627 479.627 353 473 353H24C17.3726 353 12 347.627 12 341V12Z" fill="white"/>
+  <path d="M36 36H461V317H36V36Z" fill="white" stroke="#D0D0D0"/>
+  <path d="M149.5 257.5L185 222L220.5 257.5L185 293L149.5 257.5Z" fill="black" stroke="black"/>
+  <path d="M311 92.5L346.5 57L382 92.5L346.5 128L311 92.5Z" fill="black" stroke="black"/>
+  <path d="M311 257.5L346.5 222L382 257.5L346.5 293L311 257.5Z" fill="black" stroke="black"/>
+  <path d="M150 92.5L185.5 57L221 92.5L185.5 128L150 92.5Z" fill="black" stroke="black"/>
+  <path d="M150 175L185.5 139.5L221 175L185.5 210.5L150 175Z" fill="black" stroke="black"/>
+  <path d="M311.5 175L347 139.5L382.5 175L347 210.5L311.5 175Z" fill="black" stroke="black"/>
+  <text x="160" y="50" font-size="16" font-family="Arial" fill="black">VOUAGE</text>
+  <text x="320" y="50" font-size="16" font-family="Arial" fill="black">TRIP</text>
+  <text x="160" y="130" font-size="16" font-family="Arial" fill="black">JOURNEY</text>
+  <text x="320" y="130" font-size="16" font-family="Arial" fill="black">VACATION</text>
+  <text x="185" y="200" font-size="16" font-family="Arial" fill="black">LET'S TRAVEL</text>
+  <text x="185" y="280" font-size="16" font-family="Arial" fill="black">HOLIDAY</text>
+  <path d="M185 293L221 257.5" stroke="black"/>
+  <path d="M346.5 293L382 257.5" stroke="black"/>
+  <path d="M346.5 128L382 92.5" stroke="black"/>
+  <path d="M185.5 128L221 92.5" stroke="black"/>
+  <path d="M185.5 210.5L221 175" stroke="black"/>
+  <path d="M347 210.5L382.5 175" stroke="black"/>
+</svg>

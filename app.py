@@ -157,6 +157,16 @@ def trip_details(trip_id):
 
     return render_template('trip_details.html', trip=trip)
 
+@app.route('/update_trip/<trip_id>', methods=['POST'])
+def update_trip(trip_id):
+    updated_data = {
+        'start_date': request.form['start_date'],
+        'end_date': request.form['end_date'],
+        'notes': request.form['notes']
+    }
+    mongoAPI.travel_db.trips.update_one({'_id': ObjectId(trip_id)}, {'$set': updated_data})
+    flash('Trip details updated successfully!', 'success')
+    return redirect(url_for('trip_details', trip_id=trip_id))
 
 @app.route('/toggle_checklist_item/<trip_id>/<day>/<item>', methods=['POST'])
 def toggle_checklist_item(trip_id, day, item):
@@ -178,6 +188,33 @@ def add_checklist_item(trip_id, day):
         {'_id': ObjectId(trip_id)},
         {'$push': {f'checklist.{day}': {'item': item, 'completed': False}}}
     )
+    return redirect(url_for('trip_details', trip_id=trip_id))
+
+@app.route('/delete_day/<trip_id>/<day>', methods=['POST'])
+def delete_day(trip_id, day):
+    mongoAPI.travel_db.trips.update_one(
+        {'_id': ObjectId(trip_id)},
+        {'$unset': {f'checklist.{day}': ""}}
+    )
+    return redirect(url_for('trip_details', trip_id=trip_id))
+
+
+
+@app.route('/edit_checklist_item/<trip_id>/<day>/<old_item>', methods=['POST'])
+def edit_checklist_item(trip_id, day, old_item):
+    new_item = request.form['new_item']
+    trip = mongoAPI.travel_db.trips.find_one({'_id': ObjectId(trip_id)})
+    
+    if trip:
+        checklist = trip.get('checklist', {})
+        updated_items = [
+            {'item': new_item, 'completed': i['completed']}
+            if i['item'] == old_item else i
+            for i in checklist.get(day, [])
+        ]
+        checklist[day] = updated_items
+        mongoAPI.travel_db.trips.update_one({'_id': ObjectId(trip_id)}, {'$set': {'checklist': checklist}})
+    
     return redirect(url_for('trip_details', trip_id=trip_id))
 
 
