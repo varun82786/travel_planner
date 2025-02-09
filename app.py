@@ -49,6 +49,8 @@ def signup():
         }
         mongoAPI.auth_collection.insert_one(credentials_data)
 
+        mongoAPI.travel_db.trips.insert_one(mongoAPI.default_trip(username,operationsAPI.get_date()))
+
         # Redirect to login page
         return redirect(url_for('login'))
 

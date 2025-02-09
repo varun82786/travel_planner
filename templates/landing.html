@@ -1,17 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Hashtag Generator</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
-    <div class="container_landing">
-        <h2>Welcome to Hashtag Generator</h2>
-        <div class="landing-buttons">
-            <a class="btn" href="{{ url_for('signup') }}">Sign Up</a>
-            <a class="btn" href="{{ url_for('login') }}">Log In</a>
-        </div>
-        <h5>"Crafted with passion by cruising_bug"</h5>
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container_landing">
+    <h2>Welcome to Your Travel Companion</h2>
+    <p>Plan, explore, and cherish every journey.</p>
+
+    <div class="travel-quotes">
+        <blockquote>🌍 "The world is a book, and those who do not travel read only one page." – Saint Augustine</blockquote>
+        <blockquote>🏕️ "Not all those who wander are lost." – J.R.R. Tolkien</blockquote>
+        <blockquote>✈️ "Travel makes one modest. You see what a tiny place you occupy in the world." – Gustave Flaubert</blockquote>
+        <blockquote>🚶 "A journey of a thousand miles begins with a single step." – Lao Tzu</blockquote>
+        <blockquote>📖 "Fill your life with experiences, not things. Have stories to tell, not stuff to show." – Unknown</blockquote>
     </div>
-</body>
-</html>
+
+    <h5>"A journey well planned is a journey well enjoyed." ✨</h5>
+</div>
+
+{% endblock %}

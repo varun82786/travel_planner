@@ -99,3 +99,44 @@ def get_trips():
     trips = travel_db.trips.find()
 
     return trips
+
+
+def default_trip(username, created_date):
+    default_data = {
+        "username": f"{username}",
+        "destination": "Varanasi (3-Day Spiritual & Cultural Escape)",
+        "start_date": f"{created_date}",
+        "end_date": f"{created_date}",
+        "created_at": f"{created_date}",
+        "updated_at": None,
+        "notes": "Immerse in the mysticism and energy of the oldest living city!",
+        "checklist": {
+            "Day 1": [
+                {"item0": "Arrive in Varanasi and check in to a heritage guesthouse by the Ganges.", "completed": False},
+                {"item1": "Stroll through the narrow alleys of the Old City and soak in the chaos.", "completed": True},
+                {"item2": "Visit the sacred Kashi Vishwanath Temple – feel the divine vibrations.", "completed": False},
+                {"item3": "Take a mesmerizing sunset boat ride on the Ganges.", "completed": False},
+                {"item4": "Witness the spellbinding Ganga Aarti at Dashashwamedh Ghat.", "completed": False},
+                {"item5": "Indulge in street food: Try the famous Banarasi chaat & malaiyyo.", "completed": False}
+            ],
+            "Day 2": [
+                {"item0": "Wake up early for a serene sunrise boat ride along the ghats.", "completed": False},
+                {"item1": "Explore the eerie Manikarnika Ghat, where life and death intertwine.", "completed": False},
+                {"item2": "If visiting during Holi, experience the Masan Holi with Aghori sadhus.", "completed": False},
+                {"item3": "Visit Sarnath, the land of Buddha’s first sermon.", "completed": False},
+                {"item4": "Discover local markets for Banarasi silk sarees and souvenirs.", "completed": False},
+                {"item5": "Enjoy a soulful evening music performance at a local haveli.", "completed": False}
+            ],
+            "Day 3": [
+                {"item0": "Attend a peaceful morning yoga session on Assi Ghat.", "completed": False},
+                {"item1": "Visit hidden gems like Nepali Temple & Kedar Ghat.", "completed": False},
+                {"item2": "Have a final cup of Banarasi chai with river views.", "completed": False},
+                {"item3": "Say goodbye to the magical city and depart with your heart full of memories.", "completed": False}
+            ]
+        },
+        "expenses": [],
+        "files": []
+    }
+    
+    return default_data
+
