@@ -1,0 +1,108 @@
+{
+    "_id": {
+      "$oid": "67a8594ec27d52e22e0551cc"
+    },
+    "username": "cruising_bug",
+    "destination": "Varanasi trip (Masan Holi)",
+    "start_date": "2025-03-09",
+    "end_date": "2025-02-14",
+    "created_at": "2025-02-09",
+    "updated_at": null,
+    "notes": "tickets are booked for train both sides and they are in waiting list yet to conformed",
+    "checklist": {
+      "Day 1": [
+        {
+          "item0": "Arrive in Varanasi and check into your hotel/guesthouse.",
+          "completed": false
+        },
+        {
+          "item1": "Visit Kashi Vishwanath Temple for darshan and spiritual immersion.",
+          "completed": false
+        },
+        {
+          "item2": "Take a sunset boat ride on the Ganges to experience the ghats.",
+          "completed": false
+        },
+        {
+          "item3": "Attend the Ganga Aarti at Dashashwamedh Ghat in the evening.",
+          "completed": false
+        },
+        {
+          "item4": "Try local delicacies like kachoris, jalebis, and Banarasi paan.",
+          "completed": false
+        },
+        {
+          "item5": "test",
+          "completed": false
+        }
+      ],
+      "Day 2": [
+        {
+          "item0": "Early morning visit to Assi Ghat for sunrise meditation and rituals.",
+          "completed": false
+        },
+        {
+          "item1": "Walk along the Manikarnika Ghat and learn about its significance.",
+          "completed": false
+        },
+        {
+          "item2": "Witness or participate in Masan Holi at Manikarnika Ghat with Aghori sadhus.",
+          "completed": false
+        },
+        {
+          "item3": "Interact with sadhus and understand their unique spiritual practices.",
+          "completed": false
+        },
+        {
+          "item4": "Explore the bustling streets of Varanasi for souvenirs and handicrafts.",
+          "completed": false
+        },
+        {
+          "item5": "Evening leisure time or optional temple visits.",
+          "completed": false
+        }
+      ],
+      "Day 3": [
+        {
+          "item0": "Half-day trip to Sarnath, the Buddhist pilgrimage site.",
+          "completed": false
+        },
+        {
+          "item1": "Visit Dhamek Stupa, Ashokan Pillar, and Sarnath Museum.",
+          "completed": false
+        },
+        {
+          "item2": "Return to Varanasi and explore the Ramnagar Fort.",
+          "completed": false
+        },
+        {
+          "item3": "Enjoy an evening of classical music or storytelling session.",
+          "completed": false
+        },
+        {
+          "item4": "Dinner at a rooftop café overlooking the Ganga.",
+          "completed": false
+        }
+      ],
+      "Day 4": [
+        {
+          "item0": "Experience an early morning boat ride with Ganga Aarti.",
+          "completed": false
+        },
+        {
+          "item1": "Participate in yoga or a guided spiritual discourse.",
+          "completed": false
+        },
+        {
+          "item2": "Last-minute shopping for Banarasi silk or artifacts.",
+          "completed": false
+        },
+        {
+          "item3": "Check-out and transfer to airport/railway station for departure.",
+          "completed": false
+        }
+      ]
+    },
+    "expenses": [],
+    "files": []
+  }

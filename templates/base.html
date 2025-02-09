@@ -5,82 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Travel Itinerary App</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #eef2f7; /* Soft light blue */
-            background-image: url('media/temp.svg');
-            background-repeat: repeat; /* Make the pattern repeat */
-            background-position: center;
-        }
-        .navbar {
-            background-color: #6baed6; /* Sky blue */
-        }
-        .navbar a {
-            color: white !important;
-        }
-        .navbar-brand {
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-        .card {
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s ease-in-out;
-            background-color: #ffffff; /* Clean white background for cards */
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-        .card-header {
-            background-color: #4e79a7; /* Deep blue */
-            color: white;
-            font-weight: bold;
-        }
-        .card-body {
-            padding: 1.5rem;
-        }
-        .btn {
-            border-radius: 25px;
-            transition: background-color 0.3s ease;
-            background-color: #ffac33; /* Warm golden yellow */
-            color: white;
-        }
-        .btn:hover {
-            background-color: #ff9a00; /* Lighter golden yellow */
-        }
-        .flash {
-            font-size: 1.1rem;
-            margin-top: 20px;
-            border-radius: 8px;
-            padding: 15px;
-            animation: fadeIn 0.5s ease-in-out;
-        }
-        .flash.success {
-            background-color: #d4edda; /* Soft green for success */
-            color: #155724;
-        }
-        .flash.danger {
-            background-color: #f8d7da; /* Soft pink for danger */
-            color: #721c24;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        footer {
-            background-color: #2f4f4f; /* Slate gray for footer */
-            color: white;
-            padding: 10px;
-            margin-top: 50px;
-        }
-        footer p {
-            margin-bottom: 0;
-        }
-    </style>
-    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='newstyles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+
     
 </head>
 <body>

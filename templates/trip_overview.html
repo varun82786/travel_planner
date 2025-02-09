@@ -1,51 +1,45 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container mt-4">
-    <h2>{{ trip.destination }} - Overview</h2>
 
-    <div class="card p-3">
-        <p><strong>Start Date:</strong> {{ trip.start_date }}</p>
-        <p><strong>End Date:</strong> {{ trip.end_date }}</p>
-        <p><strong>Notes:</strong> {{ trip.notes }}</p>
+<!-- Link External CSS -->
+<link rel="stylesheet" href="{{ url_for('static', filename='newstyles.css') }}">
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+
+<!-- Paper-Styled Overview -->
+<div class="paper">
+    <h2>{{ trip.destination }}</h2>
+    <p><strong>Start Date:</strong> {{ trip.start_date }}</p>
+    <p><strong>End Date:</strong> {{ trip.end_date }}</p>
+    <p><strong>Notes:</strong> {{ trip.notes }}</p>
+
+    <h3>📋 Itinerary</h3>
+    <div class="checklist">
+        {% for day, items in trip.checklist.items() %}
+            <p><strong>{{ day }}</strong></p>
+            <ul>
+                {% for item_dict in items %}
+                    {% for key, item in item_dict.items() if key != "completed" %}
+                        <li class="{% if item_dict.completed %}completed{% endif %}">
+                            {{ item }}
+                        </li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        {% endfor %}
     </div>
 
-    <!-- Checklist Summary -->
-    <h3 class="mt-4">Checklist Summary</h3>
-    {% for day, items in trip.checklist.items() %}
-        <div class="card mt-3">
-            <div class="card-header">
-                <h5>{{ day }}</h5>
-            </div>
-            <div class="card-body">
-                <ul class="list-group">
-                    {% for item_dict in items %}
-                        {% for key, item in item_dict.items() if key != "completed" %}
-                            <li class="list-group-item {% if item_dict.completed %}text-muted text-decoration-line-through{% endif %}">
-                                {{ item }}
-                            </li>
-                        {% endfor %}
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-    {% endfor %}
-
-    <!-- File Attachments -->
-    <h3 class="mt-4">Uploaded Files</h3>
-    <ul class="list-group">
+    <h3>📂 Uploaded Files</h3>
+    <ul>
         {% for file in trip.files %}
-            <li class="list-group-item">
-                <a href="{{ url_for('uploaded_file', filename=file) }}" target="_blank">{{ file }}</a>
-            </li>
+            <li><a href="{{ url_for('uploaded_file', filename=file) }}" target="_blank">{{ file }}</a></li>
         {% else %}
-            <li class="list-group-item">No files uploaded</li>
+            <li>No files uploaded</li>
         {% endfor %}
     </ul>
 
     <!-- View & Edit Trip Button -->
-    <div class="mt-4">
-        <a href="{{ url_for('trip_details', trip_id=trip._id) }}" class="btn btn-primary">View & Edit Trip</a>
-    </div>
+    <a href="{{ url_for('trip_details', trip_id=trip._id) }}" class="btn-custom">✏️ View & Edit Trip</a>
 </div>
+
 {% endblock %}

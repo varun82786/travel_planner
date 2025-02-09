@@ -1,0 +1,163 @@
+/* Import Handwritten-Style Font */
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Nunito:wght@500&display=swap');
+
+/* Global Styles */
+body {
+    background-color: #F8F6F2; /* Soft Warm Beige */
+    font-family: 'Patrick Hand', cursive; /* Handwritten Notebook Font */
+    color: #3E3D3A; /* Warm Dark Gray */
+    margin: 0;
+    padding: 0;
+}
+
+/* Ensure Full-Screen Coverage */
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+/* Container for Content */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Travel Notebook Paper Style */
+.paper {
+    background: #FAF8F3; /* Soft Paper Beige */
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    margin: 50px auto;
+    border-left: 6px solid #7A8B75; /* Muted Olive Accent */
+    line-height: 1.8;
+    position: relative;
+}
+
+/* Responsive Grid Layout */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    .paper {
+        padding: 20px;
+        margin: 20px auto;
+    }
+}
+
+/* Headings */
+h2, h3 {
+    font-family: 'Nunito', sans-serif;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 15px;
+    color: #5A5A56; /* Soft Warm Gray */
+}
+
+/* Checklist Styling */
+.checklist ul {
+    list-style: none;
+    padding: 0;
+}
+
+.checklist li {
+    padding-left: 25px;
+    position: relative;
+    font-size: 18px;
+    font-family: 'Patrick Hand', cursive;
+}
+
+.checklist li:before {
+    content: "\2713"; /* Checkmark symbol */
+    position: absolute;
+    left: 0;
+    color: #7A8B75; /* Muted Olive Green */
+    font-weight: bold;
+}
+
+/* Button Styles */
+.btn-custom {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 16px;
+    display: block;
+    text-align: center;
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    margin-top: 20px;
+    background: #A49680; /* Soft Earthy Brown */
+    color: #3E3D3A;
+    text-decoration: none;
+    border: 1px solid #8B7E66;
+    transition: background 0.3s ease-in-out;
+}
+
+.btn-custom:hover {
+    background: #8B7E66;
+    color: white;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #5A5A56; /* Warm Dark Gray */
+    padding: 15px 20px;
+    width: 100%;
+}
+
+.navbar a {
+    color: white !important;
+    font-weight: 600;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Responsive Cards */
+.card {
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+    background-color: #FAF8F3; /* Soft Paper Beige */
+    overflow: hidden;
+    width: 100%;
+    border: 1px solid #E0DED9;
+}
+
+@media (max-width: 768px) {
+    .card {
+        margin-bottom: 15px;
+    }
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+    background-color: #A49680; /* Soft Earthy Brown */
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+/* Footer */
+footer {
+    background-color: #5A5A56; /* Warm Dark Gray */
+    color: white;
+    padding: 15px;
+    text-align: center;
+    margin-top: 50px;
+    width: 100%;
+}

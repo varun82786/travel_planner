@@ -1,0 +1,82 @@
+/* Import Handwritten-Style Font */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@500&family=Dancing+Script:wght@500&display=swap');
+
+/* General Button Styles */
+.btn-custom {
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 10px 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    display: inline-block;
+    transition: all 0.3s ease-in-out;
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+
+/* Soft, Neutral Travel-Themed Colors */
+
+/* Primary Button (General Actions) */
+.btn-primary-custom {
+    background: #A49680; /* Soft Brown */
+    color: #2F2F2F;
+    border: 1px solid #8B7E66;
+}
+
+.btn-primary-custom:hover {
+    background: #8B7E66;
+    color: white;
+}
+
+/* Success Button (Save, Add) */
+.btn-success-custom {
+    background: #7A8B75; /* Muted Olive Green */
+    color: white;
+    border: 1px solid #606F58;
+}
+
+.btn-success-custom:hover {
+    background: #606F58;
+}
+
+/* Warning Button (Edit) */
+.btn-warning-custom {
+    background: #C2A878; /* Warm Beige */
+    color: black;
+    border: 1px solid #A89065;
+}
+
+.btn-warning-custom:hover {
+    background: #A89065;
+}
+
+/* Danger Button (Delete) */
+.btn-danger-custom {
+    background: #B58B74; /* Earthy Muted Brown */
+    color: white;
+    border: 1px solid #916C59;
+}
+
+.btn-danger-custom:hover {
+    background: #916C59;
+}
+
+/* Outline Button */
+.btn-outline-custom {
+    border: 1px solid #635D57;
+    background: transparent;
+    color: #635D57;
+}
+
+.btn-outline-custom:hover {
+    background: #635D57;
+    color: white;
+}
+
+/* Full Width Buttons */
+.btn-block {
+    width: 100%;
+    display: block;
+}

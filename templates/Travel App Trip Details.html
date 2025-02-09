@@ -1,9 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-<!-- Link External Button Styles -->
-<link rel="stylesheet" href="{{ url_for('static', filename='buttons.css') }}">
-
 <div class="container mt-4">
     <h2>{{ trip.destination }}</h2>
 
@@ -13,7 +10,8 @@
         <p><strong>Start Date:</strong> {{ trip.start_date }}</p>
         <p><strong>End Date:</strong> {{ trip.end_date }}</p>
         <p><strong>Notes:</strong> {{ trip.notes }}</p>
-        <button class="btn btn-warning-custom" onclick="enableEditMode()">Edit</button>
+
+        <button class="btn btn-warning" onclick="enableEditMode()">✏️</button>
     </div>
 
     <!-- Edit Mode (Hidden by Default) -->
@@ -30,8 +28,8 @@
         <label><strong>Notes:</strong></label>
         <textarea name="notes" class="form-control mb-2">{{ trip.notes }}</textarea>
 
-        <button type="submit" class="btn btn-success-custom">Save</button>
-        <button type="button" class="btn btn-outline-custom" onclick="disableEditMode()">Cancel</button>
+        <button type="submit" class="btn btn-success">💾</button>
+        <button type="button" class="btn btn-secondary" onclick="disableEditMode()">❌</button>
     </form>
 
     <!-- Checklist Section -->
@@ -41,7 +39,7 @@
             <div class="card-header d-flex justify-content-between">
                 <h5>{{ day }}</h5>
                 <form action="{{ url_for('delete_day', trip_id=trip._id, day=day) }}" method="POST">
-                    <button type="submit" class="btn btn-danger-custom btn-sm">Delete Day</button>
+                    <button type="submit" class="btn btn-danger btn-sm">Delete Day</button>
                 </form>
             </div>
             <div class="card-body">
@@ -55,9 +53,9 @@
                                     <span class="{% if item_dict.completed %}text-muted text-decoration-line-through{% endif %}">{{ item }}</span>
                                 </div>
                                 <div>
-                                    <button class="btn btn-sm btn-primary-custom" onclick="openEditModal('{{ trip._id }}', '{{ day }}', '{{ key }}', '{{ item }}')">Edit</button>
+                                    <button class="btn btn-sm btn-primary" onclick="openEditModal('{{ trip._id }}', '{{ day }}', '{{ key }}', '{{ item }}')">✏️</button>
                                     <form action="{{ url_for('delete_checklist_item', trip_id=trip._id, day=day, item_key=key) }}" method="POST" class="d-inline">
-                                        <button class="btn btn-sm btn-danger-custom">Delete</button>
+                                        <button class="btn btn-sm btn-danger">🗑️</button>
                                     </form>
                                 </div>
                             </li>
@@ -68,7 +66,7 @@
                 <!-- Add new checklist item -->
                 <form action="{{ url_for('add_checklist_item', trip_id=trip._id, day=day) }}" method="POST" class="mt-2 d-flex">
                     <input type="text" name="item" class="form-control" placeholder="Add new item" required>
-                    <button type="submit" class="btn btn-success-custom ms-2">Add</button>
+                    <button type="submit" class="btn btn-primary ms-2">➕</button>
                 </form>
             </div>
         </div>
@@ -77,39 +75,17 @@
     <!-- Add a new day -->
     <form action="{{ url_for('add_day', trip_id=trip._id) }}" method="POST" class="mt-4">
         <input type="text" name="day" class="form-control" placeholder="Add new day (e.g., Day 3)" required>
-        <button type="submit" class="btn btn-success-custom mt-2">Add Day</button>
+        <button type="submit" class="btn btn-success mt-2">Add Day</button>
     </form>
 
     <!-- Delete Trip Button -->
     <form action="{{ url_for('delete_trip', trip_id=trip._id) }}" method="POST" class="mt-4">
-        <button type="submit" class="btn btn-danger-custom btn-block">Delete Trip</button>
+        <button type="submit" class="btn btn-danger">Delete Trip</button>
     </form>
 
-    <!-- Redirect to Overview Page -->
-    <a href="{{ url_for('trip_overview', trip_id=trip._id) }}" class="btn btn-primary-custom mt-3">View Trip Overview</a>
+    <!-- redirect to overview page-->
+    <a href="{{ url_for('trip_overview', trip_id=trip._id) }}" class="btn btn-outline-primary">👁️</a>
 
-</div>
-
-<!-- Edit Checklist Item Modal -->
-<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">Edit Checklist Item</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form id="editForm" method="POST">
-                <div class="modal-body">
-                    <input type="hidden" name="old_item_key" id="editItemKey">
-                    <input type="text" name="new_item" id="editItemInput" class="form-control" required>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-custom" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary-custom">Update</button>
-                </div>
-            </form>
-        </div>
-    </div>
 </div>
 
 <script>
@@ -124,11 +100,10 @@
     }
 
     function openEditModal(tripId, day, itemKey, itemValue) {
-        document.getElementById("editItemKey").value = itemKey;
-        document.getElementById("editItemInput").value = itemValue;
-        document.getElementById("editForm").action = `/edit_checklist_item/${tripId}/${day}/${itemKey}`;
-        
-        var modal = new bootstrap.Modal(document.getElementById("editModal"));
+        document.getElementById('editItemKey').value = itemKey;
+        document.getElementById('editItemInput').value = itemValue;
+        document.getElementById('editForm').action = `/edit_checklist_item/${tripId}/${day}/${itemKey}`;
+        var modal = new bootstrap.Modal(document.getElementById('editModal'));
         modal.show();
     }
 
