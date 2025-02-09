@@ -180,6 +180,15 @@ def toggle_checklist_item(trip_id, day, item_key):
     mongoAPI.travel_db.trips.update_one({'_id': ObjectId(trip_id)}, {'$set': {'checklist': checklist}})
     return redirect(url_for('trip_details', trip_id=trip_id))
 
+@app.route('/trip_overview/<trip_id>')
+def trip_overview(trip_id):
+    trip = mongoAPI.travel_db.trips.find_one({'_id': ObjectId(trip_id)})
+    
+    if not trip:
+        flash('Trip not found!', 'danger')
+        return redirect(url_for('home'))
+
+    return render_template('trip_overview.html', trip=trip)
 
 
 @app.route('/add_checklist_item/<trip_id>/<day>', methods=['POST'])

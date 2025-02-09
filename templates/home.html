@@ -6,7 +6,7 @@
 <div class="row">
     {% for trip in trips %}
         <div class="col-md-4 col-sm-6 mb-4">
-            <a href="{{ url_for('trip_details', trip_id=trip._id) }}" class="text-decoration-none">
+            <a href="{{ url_for('trip_overview', trip_id=trip._id) }}" class="text-decoration-none">
                 <div class="card shadow-sm">
                     <div class="card-header">
                         <h5 class="mb-0">{{ trip.destination }}</h5>

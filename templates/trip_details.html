@@ -3,24 +3,36 @@
 {% block content %}
 <div class="container mt-4">
     <h2>{{ trip.destination }} - Trip Details</h2>
-    <form action="{{ url_for('edit_trip', trip_id=trip._id) }}" method="POST">
+
+    <!-- View Mode (Default) -->
+    <div id="viewMode">
+        <p><strong>Destination:</strong> {{ trip.destination }}</p>
+        <p><strong>Start Date:</strong> {{ trip.start_date }}</p>
+        <p><strong>End Date:</strong> {{ trip.end_date }}</p>
+        <p><strong>Notes:</strong> {{ trip.notes }}</p>
+
+        <button class="btn btn-warning" onclick="enableEditMode()">Edit</button>
+    </div>
+
+    <!-- Edit Mode (Hidden by Default) -->
+    <form id="editMode" action="{{ url_for('edit_trip', trip_id=trip._id) }}" method="POST" style="display: none;">
         <label><strong>Destination:</strong></label>
         <input type="text" name="destination" value="{{ trip.destination }}" class="form-control mb-2" required>
-    
+
         <label><strong>Start Date:</strong></label>
         <input type="date" name="start_date" value="{{ trip.start_date }}" class="form-control mb-2">
-    
+
         <label><strong>End Date:</strong></label>
         <input type="date" name="end_date" value="{{ trip.end_date }}" class="form-control mb-2">
-    
+
         <label><strong>Notes:</strong></label>
         <textarea name="notes" class="form-control mb-2">{{ trip.notes }}</textarea>
-    
-        <button type="submit" class="btn btn-warning">Update Trip</button>
-    </form>
-    
-    <p><strong>Notes:</strong> {{ trip.notes }}</p>
 
+        <button type="submit" class="btn btn-success">Save</button>
+        <button type="button" class="btn btn-secondary" onclick="disableEditMode()">Cancel</button>
+    </form>
+
+    <!-- Checklist Section -->
     <h3 class="mt-4">Checklist</h3>
     {% for day, items in trip.checklist.items() %}
         <div class="card mt-3">
@@ -37,7 +49,7 @@
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <div>
                                     <input type="checkbox" class="me-2" {% if item_dict.completed %}checked{% endif %}
-                                        onchange="toggleChecklistItem('{{ trip._id }}', '{{ day }}', '{{ key }}')">
+                                           onchange="toggleChecklistItem('{{ trip._id }}', '{{ day }}', '{{ key }}')">
                                     <span class="{% if item_dict.completed %}text-muted text-decoration-line-through{% endif %}">{{ item }}</span>
                                 </div>
                                 <div>
@@ -70,31 +82,23 @@
     <form action="{{ url_for('delete_trip', trip_id=trip._id) }}" method="POST" class="mt-4">
         <button type="submit" class="btn btn-danger">Delete Trip</button>
     </form>
-</div>
 
-<!-- Edit Modal -->
-<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">Edit Checklist Item</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form id="editForm" method="POST">
-                <div class="modal-body">
-                    <input type="hidden" name="old_item_key" id="editItemKey">
-                    <input type="text" name="new_item" id="editItemInput" class="form-control">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Update</button>
-                </div>
-            </form>
-        </div>
-    </div>
+    <!-- redirect to overview page-->
+    <a href="{{ url_for('trip_overview', trip_id=trip._id) }}" class="btn btn-outline-primary">View Trip</a>
+
 </div>
 
 <script>
+    function enableEditMode() {
+        document.getElementById("viewMode").style.display = "none";
+        document.getElementById("editMode").style.display = "block";
+    }
+
+    function disableEditMode() {
+        document.getElementById("viewMode").style.display = "block";
+        document.getElementById("editMode").style.display = "none";
+    }
+
     function openEditModal(tripId, day, itemKey, itemValue) {
         document.getElementById('editItemKey').value = itemKey;
         document.getElementById('editItemInput').value = itemValue;
@@ -102,7 +106,6 @@
         var modal = new bootstrap.Modal(document.getElementById('editModal'));
         modal.show();
     }
-
 
     function toggleChecklistItem(tripId, day, key) {
         fetch(`/toggle_checklist_item/${tripId}/${day}/${key}`, { method: 'POST' })
