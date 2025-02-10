@@ -109,7 +109,8 @@ def add_trip():
             'notes': request.form['notes'],
             'checklist': {},  # Use dictionary instead of list
             'expenses': [],
-            'files': []
+            'files': [],
+            "itinerary_used": 0
         }
         mongoAPI.travel_db.trips.insert_one(trip_data)
         flash('Trip added successfully!', 'success')
@@ -217,6 +218,7 @@ def add_to_itinerary(trip_id):
 
     # Fetch the shared trip
     trip = mongoAPI.travel_db.trips.find_one({"_id": ObjectId(trip_id), "share": True})
+    itinerary_used = trip.get("itinerary_used", 0) + 1
     
     if not trip:
         flash('Trip not found or not shared.', 'danger')
@@ -235,13 +237,20 @@ def add_to_itinerary(trip_id):
         "checklist": trip.get("checklist", {}),  # Copy checklist if available
         "expenses": trip.get("expenses", []),
         "files": trip.get("files", []),
-        "share": False  # Ensure copied trips are private by default
+        "share": False,  # Ensure copied trips are private by default
+        "itinerary_used": 0
+
     }
 
 
     new_trip = operationsAPI.reset_checklist_completion(new_trip)
     mongoAPI.travel_db.trips.insert_one(new_trip)  # Save the new trip
     flash('Trip added to your itinerary!', 'success')
+
+    mongoAPI.travel_db.trips.update_one(
+        {"_id": ObjectId(trip_id)},
+        {"$set": {"itinerary_used": itinerary_used}}
+    )
     return redirect(url_for('home'))
 
 @app.route('/toggle_share_status/<trip_id>', methods=['POST'])
