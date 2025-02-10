@@ -9,9 +9,10 @@
             <a href="{{ url_for('trip_overview', trip_id=trip._id) }}" class="text-decoration-none">
                 <div class="card shadow-sm">
                     <div class="card-header">
-                        <h5 class="mb-0">{{ trip.destination }}</h5>
+                        <h5 class="mb-0">{{ trip.Title }}</h5>
                     </div>
                     <div class="card-body">
+                        <p><strong>Destination</strong> {{ trip.destination }}</p>
                         <p><strong>Start Date:</strong> {{ trip.start_date }}</p>
                         <p><strong>End Date:</strong> {{ trip.end_date }}</p>
                         <p><strong>Notes:</strong> {{ trip.notes }}</p>

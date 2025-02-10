@@ -49,7 +49,7 @@ def signup():
         }
         mongoAPI.auth_collection.insert_one(credentials_data)
 
-        mongoAPI.travel_db.trips.insert_one(mongoAPI.default_trip(username,operationsAPI.get_date()))
+        #mongoAPI.travel_db.trips.insert_one(mongoAPI.default_trip(username,operationsAPI.get_date()))
 
         # Redirect to login page
         return redirect(url_for('login'))
@@ -100,6 +100,7 @@ def add_trip():
     if request.method == 'POST':
         trip_data = {
             'username': session['username'],  # Associate trip with logged-in user
+            'Title': request.form['Title'],
             'destination': request.form['destination'],
             'start_date': request.form['start_date'],
             'end_date': request.form['end_date'],
@@ -122,11 +123,16 @@ def edit_trip(trip_id):
         flash('You need to log in first.', 'danger')
         return redirect(url_for('login'))
     
+    if 'Title' not in request.form:
+        flash("Error: Title field is missing.", "danger")
+        return redirect(url_for('trip_details', trip_id=trip_id))
+    
     if 'destination' not in request.form:
         flash("Error: Destination field is missing.", "danger")
         return redirect(url_for('trip_details', trip_id=trip_id))
 
     updated_trip = {
+        'Title': request.form.get('Title', ''),
         'destination': request.form.get('destination', ''),
         'start_date': request.form.get('start_date', ''),
         'end_date': request.form.get('end_date', ''),
@@ -219,6 +225,7 @@ def add_to_itinerary(trip_id):
     # Remove MongoDB ObjectId and create a new trip for the logged-in user
     new_trip = {
         "username": session['username'],  # Assign the trip to the logged-in user
+        "Title": trip["Title"],
         "destination": trip["destination"],
         "start_date": operationsAPI.get_date(),
         "end_date": operationsAPI.get_date(),

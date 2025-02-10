@@ -1,9 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2 class="text-center mb-4">Edit Trip: {{ trip.destination }}</h2>
+<h2 class="text-center mb-4">Edit Trip: {{ trip.Title }}</h2>
 
 <form action="/edit_trip/{{ trip._id }}" method="POST">
+    <div class="mb-3">
+        <label for="Title" class="form-label"><Title></Title></label>
+        <input type="text" class="form-control" id="Title" name="Title" value="{{ trip.Title }}" required>
+    </div>
     <div class="mb-3">
         <label for="destination" class="form-label">Destination</label>
         <input type="text" class="form-control" id="destination" name="destination" value="{{ trip.destination }}" required>

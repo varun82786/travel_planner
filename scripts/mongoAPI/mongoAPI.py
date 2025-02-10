@@ -105,7 +105,8 @@ def get_trips():
 def default_trip(username, created_date):
     default_data = {
         "username": f"{username}",
-        "destination": "Varanasi (3-Day Spiritual & Cultural Escape)",
+        "Title": "Varanasi (3-Day Spiritual & Cultural Escape)",
+        "destination": "Varanasi, India",
         "start_date": f"{created_date}",
         "end_date": f"{created_date}",
         "created_at": f"{created_date}",
