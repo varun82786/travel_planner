@@ -192,6 +192,73 @@ def trip_overview(trip_id):
 
     return render_template('trip_overview.html', trip=trip)
 
+@app.route('/shared_tripDetail/<trip_id>')
+def shared_tripDetail(trip_id):
+    trip = mongoAPI.travel_db.trips.find_one({'_id': ObjectId(trip_id)})
+    
+    if not trip:
+        flash('Trip not found!', 'danger')
+        return redirect(url_for('home'))
+    
+    trip = operationsAPI.reset_checklist_completion(trip)
+    return render_template('shared_tripDetail.html', trip=trip)
+
+@app.route('/add_to_itinerary/<trip_id>')
+def add_to_itinerary(trip_id):
+    if 'username' not in session:
+        flash('You need to log in first.', 'danger')
+        return redirect(url_for('login'))
+
+    # Fetch the shared trip
+    trip = mongoAPI.travel_db.trips.find_one({"_id": ObjectId(trip_id), "share": True})
+    
+    if not trip:
+        flash('Trip not found or not shared.', 'danger')
+        return redirect(url_for('shared_trips'))
+
+    # Remove MongoDB ObjectId and create a new trip for the logged-in user
+    new_trip = {
+        "username": session['username'],  # Assign the trip to the logged-in user
+        "destination": trip["destination"],
+        "start_date": operationsAPI.get_date(),
+        "end_date": operationsAPI.get_date(),
+        "created_at": operationsAPI.get_date(),
+        "updated_at": None,
+        "notes": trip["notes"],
+        "checklist": trip.get("checklist", {}),  # Copy checklist if available
+        "expenses": trip.get("expenses", []),
+        "files": trip.get("files", []),
+        "share": False  # Ensure copied trips are private by default
+    }
+
+
+    new_trip = operationsAPI.reset_checklist_completion(new_trip)
+    mongoAPI.travel_db.trips.insert_one(new_trip)  # Save the new trip
+    flash('Trip added to your itinerary!', 'success')
+    return redirect(url_for('home'))
+
+@app.route('/toggle_share_status/<trip_id>', methods=['POST'])
+def toggle_share_status(trip_id):
+    if 'username' not in session:
+        flash('You need to log in first.', 'danger')
+        return redirect(url_for('login'))
+
+    trip = mongoAPI.travel_db.trips.find_one({"_id": ObjectId(trip_id), "username": session['username']})
+    if not trip:
+        flash('Unauthorized action.', 'danger')
+        return redirect(url_for('home'))
+
+    # Toggle the share status
+    new_share_status = not trip.get("share", False)
+    mongoAPI.travel_db.trips.update_one(
+        {"_id": ObjectId(trip_id)},
+        {"$set": {"share": new_share_status}}
+    )
+
+    flash('Trip sharing status updated!', 'success')
+    return redirect(url_for('trip_overview', trip_id=trip_id))
+
+
 
 @app.route('/add_checklist_item/<trip_id>/<day>', methods=['POST'])
 def add_checklist_item(trip_id, day):
@@ -263,6 +330,11 @@ def delete_trip(trip_id):
     mongoAPI.travel_db.trips.delete_one({"_id": ObjectId(trip_id)})
     flash('Trip deleted successfully!', 'success')
     return redirect(url_for('home'))
+
+@app.route('/shared_trips')
+def shared_trips():
+    trips = mongoAPI.travel_db.trips.find({"share": True})  # Fetch only shared trips
+    return render_template('shared_trips.html', trips=trips)
 
 # Template for handling uploads (photos/tickets)
 @app.route('/upload/<trip_id>', methods=['POST'])

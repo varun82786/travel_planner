@@ -2,6 +2,7 @@ import sys
 sys.path.append(r'scripts')
 
 from mongoAPI import mongodb_init 
+#import mongodb_init
 import bcrypt
 
 Client = mongodb_init.server_check()
@@ -134,9 +135,19 @@ def default_trip(username, created_date):
                 {"item3": "Say goodbye to the magical city and depart with your heart full of memories.", "completed": False}
             ]
         },
+        "share": False,
         "expenses": [],
         "files": []
     }
     
     return default_data
 
+def update_all_documents(collection, update_data):
+    try:
+        result = collection.update_many({}, {"$set": update_data})
+        print(f"Modified {result.modified_count} document(s).")
+    except Exception as e:
+        print("Error updating documents:", e)
+
+# Example usage:
+#update_all_documents(travel_db.trips, {"share": False})

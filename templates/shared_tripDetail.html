@@ -9,10 +9,11 @@
 <!-- Paper-Styled Overview -->
 <div class="paper">
     <h2>{{ trip.destination }}</h2>
+    <!--
     <p><strong>Start Date:</strong> {{ trip.start_date }}</p>
     <p><strong>End Date:</strong> {{ trip.end_date }}</p>
     <p><strong>Notes:</strong> {{ trip.notes }}</p>
-
+    -->
     <h3>📋 Itinerary</h3>
     <div class="checklist">
         {% for day, items in trip.checklist.items() %}
@@ -28,7 +29,7 @@
             </ul>
         {% endfor %}
     </div>
-
+    <!--
     <h3>📂 Uploaded Files</h3>
     <ul>
         {% for file in trip.files %}
@@ -38,16 +39,11 @@
         {% endfor %}
     </ul>
 
-    <!-- Share Trip Checkbox -->
-    <form action="{{ url_for('toggle_share_status', trip_id=trip._id) }}" method="POST" class="mt-3">
-        <label>
-            <input type="checkbox" name="share" onchange="this.form.submit()" {% if trip.get('share', False) %}checked{% endif %}>
-            🔄 Make this trip visible to others
-        </label>
-    </form>    
-
-    <!-- View & Edit Trip Button -->
+    # View & Edit Trip Button 
     <a href="{{ url_for('trip_details', trip_id=trip._id) }}" class="btn-custom">✏️ View & Edit Trip</a>
+    -->
+    <a href="{{ url_for('add_to_itinerary', trip_id=trip._id) }}" class="btn-custom">➕ Add to My Itinerary</a>
+
 </div>
 
 {% endblock %}

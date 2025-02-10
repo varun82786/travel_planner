@@ -110,7 +110,15 @@ def generate_secret_key(length=32):
 
 def get_date():
     return time.strftime("%Y-%m-%d")
-# lis = ["skyphotography", "worldphotographyday" ,"ballaratphoto" ,"officialphotographyhub" ,"traveldiary" ,"thephotographyblogger"  ]
 
-# for hash in lis:
-#     generate_hashtags()
+def reset_checklist_completion(trip_data):
+    """Sets all checklist items' 'completed' fields to False."""
+    
+    if 'checklist' in trip_data:
+        for day, items in trip_data['checklist'].items():
+            for item in items:
+                item['completed'] = False
+    return trip_data
+
+    
+

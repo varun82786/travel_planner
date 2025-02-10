@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="text-center mb-4">🌍 Explore Shared Travel Plans</h2>
+<p class="text-center">Discover trips shared by fellow travelers.</p>
+
+<div class="row">
+    {% for trip in trips %}
+        <div class="col-md-4 col-sm-6 mb-4">
+            <a href="{{ url_for('shared_tripDetail', trip_id=trip._id) }}" class="text-decoration-none">
+                <div class="card shadow-sm">
+                    <div class="card-header">
+                        <h5 class="mb-0">{{ trip.destination }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>📅 Start Date:</strong> {{ trip.start_date }}</p>
+                        <p><strong>📅 End Date:</strong> {{ trip.end_date }}</p>
+                        <p><strong>📖 Notes:</strong> {{ trip.notes }}</p>
+                        <p class="text-muted"><strong>👤 Curated by:</strong> {{ trip.username }}</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    {% else %}
+        <p class="text-center">No shared trips available at the moment.</p>
+    {% endfor %}
+</div>
+
+{% endblock %}
