@@ -1,0 +1,3 @@
+myenv/
+scripts/mongoAPI/__pycache__/
+scripts/operationsAPIs/__pycache__/

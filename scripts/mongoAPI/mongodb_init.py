@@ -1,18 +1,25 @@
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 import certifi
+from urllib.parse import quote_plus
 
 # Replace <username> and <password> with your actual MongoDB Atlas credentials
 username = "edith"
 password = "varun82786"
 database_name = "travel"  # Replace with the name of your desired database
 
+# Local MongoDB (destination)
+local_username = "varun"
+local_password = "Varun@82786"
+local_host = "192.168.31.145"
+local_port = 9638
+
 # Construct the MongoDB connection URI
-uri = f"mongodb+srv://{username}:{password}@{database_name}.1dozl2p.mongodb.net/?retryWrites=true&w=majority"
+uri = f"mongodb://{quote_plus(local_username)}:{quote_plus(local_password)}@{local_host}:{local_port}/"
 
 # Create a new client and connect to the server
 def server_check():
-    client = MongoClient(uri, tlsCAFile=certifi.where())
+    client = MongoClient(uri)
     try:
         # Send a ping to confirm a successful connection
         client.admin.command('ping')
