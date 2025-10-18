@@ -424,8 +424,10 @@ def aigen_generate():
 
 
             AigenItenary = json.loads(clean_text)
-            mongoAPI.travel_db.trips.insert_one(AigenItenary) 
+            insertResult = mongoAPI.travel_db.trips.insert_one(AigenItenary)
+            trip = mongoAPI.travel_db.trips.find_one({'_id': insertResult.inserted_id}) # Fetch the newly added trip with id to display
             #print(f"Parsed JSON data: {data}")
+            return render_template('trip_overview.html', trip=trip)
         except json.JSONDecodeError as e:
             print(f"JSON decode error: {e}\n")
             flash('could not attempt to add itinerary please try again', 'danger')
