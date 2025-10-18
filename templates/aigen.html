@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+	<h2 class="mb-4">AI Trip Itinerary Generator</h2>
+	<form method="post" action="/aigen">
+		<div class="mb-3">
+			<label for="tripDetails" class="form-label">Enter your trip details</label>
+			<textarea class="form-control" id="tripDetails" name="tripDetails" rows="5" placeholder="e.g. 5 days in Paris, interested in art, food, and history..."></textarea>
+		</div>
+		<button type="submit" class="btn btn-primary">Generate Trip Itinerary</button>
+	</form>
+</div>
+
+{% endblock %}

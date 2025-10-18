@@ -7,7 +7,10 @@ from bson import ObjectId
 from pymongo.mongo_client import MongoClient
 from scripts.mongoAPI import mongoAPI
 from scripts.operationsAPIs import operationsAPI
-
+from scripts.aimodule.prompts import itenaryPrompt, example_json
+from scripts.aimodule.geminiai import model
+import json
+import re
 
 # Flask app setup
 app = Flask(__name__)
@@ -386,6 +389,50 @@ def read_documents(collection, filter_query=None):
     except Exception as e:
         print("Error reading documents:", e)
         return []
+
+
+# Route to show the AI itinerary form page Route to handle AI itinerary form submission
+@app.route('/aigen', methods=['GET','POST'])
+def aigen_generate():
+    if 'username' not in session:
+        flash('You need to log in first.', 'danger')
+        return redirect(url_for('login'))
+    
+    if request.method == 'POST':
+        
+        trip_details = request.form.get('tripDetails', '')
+        print(f"User entered trip details: {trip_details}")
+        flash('Trip details received!', 'success')
+        flash('Generating itinerary, please wait...', 'info')
+        prompt = itenaryPrompt.format(
+            example_json=example_json,
+            username=session['username'],
+            user_description=trip_details
+        )
+
+
+        #print(f"Generated prompt for AI model: {prompt}")
+        response = model.generate_content(prompt)
+        #print(f"AI model response: {response.text}")
+        try:
+
+            # Clean the response text (remove markdown fences if any)
+            clean_text = response.text.strip()
+            clean_text = re.sub(r"^```(?:json)?", "", clean_text)
+            clean_text = re.sub(r"```$", "", clean_text)
+            clean_text = clean_text.strip()
+
+
+            AigenItenary = json.loads(clean_text)
+            insertResult = mongoAPI.travel_db.trips.insert_one(AigenItenary)
+            trip = mongoAPI.travel_db.trips.find_one({'_id': insertResult.inserted_id}) # Fetch the newly added trip with id to display
+            #print(f"Parsed JSON data: {data}")
+            return render_template('trip_overview.html', trip=trip)
+        except json.JSONDecodeError as e:
+            print(f"JSON decode error: {e}\n")
+            flash('could not attempt to add itinerary please try again', 'danger')
+
+    return render_template('aigen.html')
 
 # Running the app
 if __name__ == '__main__':
